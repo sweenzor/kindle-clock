@@ -3,4 +3,4 @@
 eips -c
 eips -c
 
-eips 10 10 $(( (2849756400 - $(date +%s)) / (1) ))
+/mnt/us/tcc/display-clock
