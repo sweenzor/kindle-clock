@@ -1,6 +1,6 @@
 //====================================================
 // kindle clock - large numeral display on kindle
-// derived from geekmasters's dither demo
+// derived from geekmaster's dither demo
 // ---------------------------------------------------
 // demo - kindle eink dynamic dither demo for tcc
 // Copyright (C) 2012 by geekmaster, with MIT license:
