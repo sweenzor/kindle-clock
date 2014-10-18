@@ -80,8 +80,6 @@ void dithermatron(void) {
     int c=0,px1=MX/2,py1=MY/2,vx1=1,vy1=2,px2=px1,py2=py1,vx2=3,vy2=1;
     int dx,dy,cc=31,cu,cl=7;
 
-    srand(time(NULL));
-
     int x_offset=75;
     int y_offset=(rand() % 665);
     int size=15;
@@ -90,6 +88,19 @@ void dithermatron(void) {
     num_four(x_offset+180,y_offset+15,size);
     num_seven(x_offset+270,y_offset+15,size);
     num_zero(x_offset+360,y_offset+15,size);
+
+    srand(time(NULL));
+    time_t epoch=time(NULL);
+    int days=((2849756400 - (int)time(NULL))/(60*60*24));
+    printf("%d\n", days);
+
+    int a = 1191223;
+    char arr[16];
+    sprintf(arr, "%d", a);
+    int i;
+    for (i = 0; i < 7; ++i) {
+        printf("digit %d = %c\n", i, arr[i]);
+    }
 
     // cleanup - close and free resources
     eupdate(EUPD_UPDATE); // update display
