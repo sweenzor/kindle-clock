@@ -1,11 +1,14 @@
 //====================================================
+// kindle clock - large numeral display on kindle
+// derived from geekmasters's dither demo
+// ---------------------------------------------------
 // demo - kindle eink dynamic dither demo for tcc
 // Copyright (C) 2012 by geekmaster, with MIT license:
 // http://www.opensource.org/licenses/mit-license.php
 //----------------------------------------------------
-//  The speed is limited by the eink device drivers.
-//  Newer kindle models are faster, but need delays.
-//  This was tested on DX,DXG,K3,K4(Mini),K5(Touch).
+// The speed is limited by the eink device drivers.
+// Newer kindle models are faster, but need delays.
+// This was tested on DX,DXG,K3,K4(Mini),K5(Touch).
 //----------------------------------------------------
 
 #include <stdio.h>      // printf
@@ -56,11 +59,7 @@ u8 blk=0;               // black
 u8 wht=0;               // white
 u8 pb=0;                // pixel bits
 
-//===============================================
-// dithermatron - kindle eink dynamic dither demo
-// This works on all kindle eink models.   Enjoy!
-//-----------------------------------------------
-void dithermatron(void) {
+void kindleclock(void) {
     int x,y;
     struct fb_var_screeninfo screeninfo;
     fdFB=open("/dev/fb0",O_RDWR); // eink framebuffer
@@ -83,7 +82,7 @@ void dithermatron(void) {
     char arr[8];
     sprintf(arr, "%d", days);
 
-    // print to screen
+    // display block numerals on screen
     int x_offset=75;
     int y_offset=(rand() % 665);
     int size=15;
@@ -306,10 +305,7 @@ void num_nine(int x, int y, int m) {
     draw_from_array(arr, x, y, m);
 }
 
-//==================
-// main - start here
-//------------------
 int main(void) {
-    dithermatron(); // do the dithermatron demo :D
+    kindleclock();
     return 0;
 }
