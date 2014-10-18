@@ -70,28 +70,8 @@ void dithermatron(void) {
 // do dithered gray demo
     int c=0,px1=MX/2,py1=MY/2,vx1=1,vy1=2,px2=px1,py2=py1,vx2=3,vy2=1;
     int dx,dy,cc=31,cu,cl=7;
-    for (cu=0;cu<20000;cu++) {
-        if (0==cu%3000) { // periodic background display
-          for (y=0; y<=MY/2; y++) {
-            for (x=0; x<=MX/2; x++) {
-                dx=MX/2-x; dy=MY/2-y; c=65-(dx*dx+dy*dy)*65/(MX*220);
-                setpx(x,y,c); setpx(MX-x,y,c);
-                setpx(x,MY-y,c); setpx(MX-x,MY-y,c);
-            }
-          }
-        }
-        box(px1,py1,80,0); box(px1,py1,81,64);
-        box(px1,py1,82,64); box(px1,py1,83,cc);
-        circle(px2,py2,50); circle(px2,py2,51); circle(px2,py2,52);
-        circle(px1+80,py1+80,20); circle(px1+80,py1-80,20);
-        circle(px1-80,py1+80,20); circle(px1-80,py1-80,20);
-        px1+=vx1; if (px1>MX-110 || px1<110) vx1=-vx1;
-        py1+=vy1; if (py1>MY-110 || py1<110) vy1=-vy1;
-        px2+=vx2; if (px2>MX-60 || px2<60) vx2=-vx2;
-        py2+=vy2; if (py2>MY-60 || py2<60) vy2=-vy2;
-        if (0==cu%cl) { eupdate(EUPD_UPDATE); } // update display
-        cc=(cc+1)%65; // cycle big box color
-    }
+    box(px1,py1,80,0); box(px1,py1,81,64);
+    box(px1,py1,82,64); box(px1,py1,83,cc);
 
 // cleanup - close and free resources
     eupdate(EUPD_UPDATE);    // update display
