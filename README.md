@@ -6,6 +6,11 @@
 - [Install tinycc for compiling on kindle](http://www.mobileread.com/forums/showthread.php?t=175834)
 - Add script to crontab
 
+
+## Notes
+- After some amount of idle time, `sshd` seems to die. Hard restart the kindle (hold power button for 30 seconds once or twice) to bring it back.
+
+
 ## Inspiration
 - [Kindle Weather Display](http://www.mpetroff.net/archives/2012/09/14/kindle-weather-display/)
 - [Dithermatron](http://www.mobileread.com/forums/showthread.php?t=175632)
