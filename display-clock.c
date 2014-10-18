@@ -80,13 +80,16 @@ void dithermatron(void) {
     int c=0,px1=MX/2,py1=MY/2,vx1=1,vy1=2,px2=px1,py2=py1,vx2=3,vy2=1;
     int dx,dy,cc=31,cu,cl=7;
 
+    srand(time(NULL));
+
     int x_offset=75;
-    int y_offset=75;
-    num_one(x_offset+0,y_offset+15,15);
-    num_six(x_offset+90,y_offset+15,15);
-    num_four(x_offset+180,y_offset+15,15);
-    num_seven(x_offset+270,y_offset+15,15);
-    num_zero(x_offset+360,y_offset+15,15);
+    int y_offset=(rand() % 665);
+    int size=15;
+    num_one(x_offset+0,y_offset+15,size);
+    num_six(x_offset+90,y_offset+15,size);
+    num_four(x_offset+180,y_offset+15,size);
+    num_seven(x_offset+270,y_offset+15,size);
+    num_zero(x_offset+360,y_offset+15,size);
 
     // cleanup - close and free resources
     eupdate(EUPD_UPDATE); // update display
