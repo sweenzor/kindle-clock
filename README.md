@@ -9,3 +9,6 @@
 ## Inspiration
 - [Kindle Weather Display](http://www.mpetroff.net/archives/2012/09/14/kindle-weather-display/)
 - [Dithermatron](http://www.mobileread.com/forums/showthread.php?t=175632)
+
+## Demo
+![Demo](https://raw.githubusercontent.com/sweenzor/kindle-clock/master/demo.jpg)
