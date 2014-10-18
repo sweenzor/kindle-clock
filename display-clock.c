@@ -33,11 +33,18 @@ typedef unsigned int u32;
 // function prototypes
 void inline setpx(int,int,int);
 void box(int,int,int,int);
-void line(int,int,int,int,int);
-void circle(int,int,int);
 int eupdate(int);
-void num_zero(int,int,int);
 void draw_from_array(int[7][5],int,int,int);
+void num_zero(int,int,int);
+void num_one(int,int,int);
+void num_two(int,int,int);
+void num_three(int,int,int);
+void num_four(int,int,int);
+void num_five(int,int,int);
+void num_six(int,int,int);
+void num_seven(int,int,int);
+void num_eight(int,int,int);
+void num_nine(int,int,int);
 
 // global vars
 u8 *fb0=NULL;           // framebuffer pointer
@@ -73,7 +80,13 @@ void dithermatron(void) {
     int c=0,px1=MX/2,py1=MY/2,vx1=1,vy1=2,px2=px1,py2=py1,vx2=3,vy2=1;
     int dx,dy,cc=31,cu,cl=7;
 
-    num_zero(15,15,30);
+    int x_offset=75;
+    int y_offset=75;
+    num_one(x_offset+0,y_offset+15,15);
+    num_six(x_offset+90,y_offset+15,15);
+    num_four(x_offset+180,y_offset+15,15);
+    num_seven(x_offset+270,y_offset+15,15);
+    num_zero(x_offset+360,y_offset+15,15);
 
     // cleanup - close and free resources
     eupdate(EUPD_UPDATE); // update display
@@ -148,6 +161,123 @@ void num_zero(int x, int y, int m) {
         {1,1,0,0,1},
         {1,0,0,0,1},
         {0,1,1,1,0}
+    };
+    draw_from_array(arr, x, y, m);
+}
+
+void num_one(int x, int y, int m) {
+    int arr[7][5] = {
+        {0,0,1,0,0},
+        {0,1,1,0,0},
+        {0,0,1,0,0},
+        {0,0,1,0,0},
+        {0,0,1,0,0},
+        {0,0,1,0,0},
+        {0,1,1,1,0}
+    };
+    draw_from_array(arr, x, y, m);
+}
+
+void num_two(int x, int y, int m) {
+    int arr[7][5] = {
+        {0,1,1,1,0},
+        {1,0,0,0,1},
+        {0,0,0,0,1},
+        {0,0,0,1,0},
+        {0,0,1,0,0},
+        {0,1,0,0,0},
+        {1,1,1,1,1}
+    };
+    draw_from_array(arr, x, y, m);
+}
+
+void num_three(int x, int y, int m) {
+    int arr[7][5] = {
+        {0,1,1,1,0},
+        {1,0,0,0,1},
+        {0,0,0,0,1},
+        {0,0,1,1,0},
+        {0,0,0,0,1},
+        {1,0,0,0,1},
+        {0,1,1,1,0}
+    };
+    draw_from_array(arr, x, y, m);
+}
+
+void num_four(int x, int y, int m) {
+    int arr[7][5] = {
+        {0,0,0,1,0},
+        {0,0,1,1,0},
+        {0,1,0,1,0},
+        {1,0,0,1,0},
+        {1,1,1,1,1},
+        {0,0,0,1,0},
+        {0,0,0,1,0}
+    };
+    draw_from_array(arr, x, y, m);
+}
+
+void num_five(int x, int y, int m) {
+    int arr[7][5] = {
+        {1,1,1,1,1},
+        {1,0,0,0,0},
+        {1,1,1,1,0},
+        {0,0,0,0,1},
+        {0,0,0,0,1},
+        {1,0,0,0,1},
+        {0,1,1,1,0}
+    };
+    draw_from_array(arr, x, y, m);
+}
+
+void num_six(int x, int y, int m) {
+    int arr[7][5] = {
+        {0,0,1,1,0},
+        {0,1,0,0,0},
+        {1,0,0,0,0},
+        {1,1,1,1,0},
+        {1,0,0,0,1},
+        {1,0,0,0,1},
+        {0,1,1,1,0}
+    };
+    draw_from_array(arr, x, y, m);
+}
+
+void num_seven(int x, int y, int m) {
+    int arr[7][5] = {
+        {1,1,1,1,1},
+        {0,0,0,0,1},
+        {0,0,0,1,0},
+        {0,0,1,0,0},
+        {0,0,1,0,0},
+        {0,0,1,0,0},
+        {0,0,1,0,0}
+    };
+    draw_from_array(arr, x, y, m);
+}
+
+void num_eight(int x, int y, int m) {
+    int arr[7][5] = {
+        {0,1,1,1,0},
+        {1,0,0,0,1},
+        {1,0,0,0,1},
+        {0,1,1,1,0},
+        {1,0,0,0,1},
+        {1,0,0,0,1},
+        {0,1,1,1,0}
+    };
+    draw_from_array(arr, x, y, m);
+}
+
+void num_nine(int x, int y, int m) {
+    int arr[7][5] = {
+        {0,1,1,1,0},
+        {1,0,0,0,1},
+        {1,0,0,0,1},
+        {0,1,1,1,1},
+        {0,0,0,0,1},
+        {0,0,0,1,0},
+        {0,1,1,0,0}
     };
     draw_from_array(arr, x, y, m);
 }
