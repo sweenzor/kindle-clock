@@ -56,7 +56,7 @@ void dithermatron(void) {
     struct fb_var_screeninfo screeninfo;
     fdFB=open("/dev/fb0",O_RDWR); // eink framebuffer
 
-// calculate model-specific vars
+    // calculate model-specific vars
     ioctl(fdFB,FBIOGET_VSCREENINFO,&screeninfo);
     MX=screeninfo.xres;  // max X+1
     MY=screeninfo.yres; // max Y+1
@@ -67,13 +67,12 @@ void dithermatron(void) {
     fb0=(u8 *)mmap(0,MY*fs,PROT_READ|PROT_WRITE,MAP_SHARED,fdFB,0); // map fb0
     eupdate(EUPD_OPEN); // open fb0 update proc
 
-// do dithered gray demo
+    // do dithered gray demo
     int c=0,px1=MX/2,py1=MY/2,vx1=1,vy1=2,px2=px1,py2=py1,vx2=3,vy2=1;
     int dx,dy,cc=31,cu,cl=7;
-    box(px1,py1,80,0); box(px1,py1,81,64);
-    box(px1,py1,82,64); box(px1,py1,83,cc);
+    box(px1,py1,82,64);
 
-// cleanup - close and free resources
+    // cleanup - close and free resources
     eupdate(EUPD_UPDATE);    // update display
     eupdate(EUPD_CLOSE);    // close fb0 update proc port
     munmap(fb0,fs*(MY+1)); // unmap fb0
@@ -117,21 +116,6 @@ void box(int x,int y,int d,int c) {
     for (i=0;i<d;++i) {
         setpx(x+i,y+d,c); setpx(x+i,y-d,c); setpx(x-i,y+d,c); setpx(x-i,y-d,c);
         setpx(x+d,y+i,c); setpx(x+d,y-i,c); setpx(x-d,y+i,c); setpx(x-d,y-i,c);
-    }
-}
-
-//==============================================
-// circle - optimized midpoint circle algorithm
-//----------------------------------------------
-void circle(int cx,int cy,int r) {
-    int e=-r,x=r,y=0;
-    while (x>y) {
-        setpx(cx+y,cy-x,64); setpx(cx+x,cy-y,40);
-        setpx(cx+x,cy+y,24); setpx(cx+y,cy+x,8);
-        setpx(cx-y,cy+x,0); setpx(cx-x,cy+y,16);
-        setpx(cx-x,cy-y,32); setpx(cx-y,cy-x,48);
-        e+=y; y++; e+=y;
-        if (e>0) { e-=x; x-=1; e-=x; }
     }
 }
 
