@@ -9,22 +9,22 @@
 //----------------------------------------------------
 
 #include <stdio.h>      // printf
-#include <stdlib.h>    // malloc, free
-#include <string.h>   // memset, memcpy
-#include <unistd.h>  // usleep
-#include <fcntl.h>  // open, close, write
-#include <time.h>  // time
+#include <stdlib.h>     // malloc, free
+#include <string.h>     // memset, memcpy
+#include <unistd.h>     // usleep
+#include <fcntl.h>      // open, close, write
+#include <time.h>       // time
 #include <sys/mman.h>   // mmap, munmap
-#include <sys/ioctl.h> // ioctl
-#include <linux/fb.h> // screeninfo
+#include <sys/ioctl.h>  // ioctl
+#include <linux/fb.h>   // screeninfo
 
 #define ED6 570000      // k4 eink delay best quality
-#define ED5 500000     // k4 eink delay good quality
-#define ED4 230000    // k4 eink delay K3 speed
-#define ED3 100000   // k4 eink delay okay
-#define ED2 80000   // k4 eink delay fast
-#define ED1 0      // k4 eink delay none, bad
-#define K4DLY ED2 // k4 eink delay
+#define ED5 500000      // k4 eink delay good quality
+#define ED4 230000      // k4 eink delay K3 speed
+#define ED3 100000      // k4 eink delay okay
+#define ED2 80000       // k4 eink delay fast
+#define ED1 0           // k4 eink delay none, bad
+#define K4DLY ED2       // k4 eink delay
 
 enum eupd_op { EUPD_OPEN,EUPD_CLOSE,EUPD_UPDATE };
 typedef unsigned char u8;
@@ -38,14 +38,14 @@ void circle(int,int,int);
 int eupdate(int);
 
 // global vars
-u8 *fb0=NULL;   // framebuffer pointer
-int fdFB=0;    // fb0 file descriptor
-u32 fs=0;     // fb0 stride
-u32 MX=0;    // xres (visible)
-u32 MY=0;   // yres (visible)
-u8 blk=0;  // black
-u8 wht=0; // white
-u8 pb=0; // pixel bits
+u8 *fb0=NULL;           // framebuffer pointer
+int fdFB=0;             // fb0 file descriptor
+u32 fs=0;               // fb0 stride
+u32 MX=0;               // xres (visible)
+u32 MY=0;               // yres (visible)
+u8 blk=0;               // black
+u8 wht=0;               // white
+u8 pb=0;                // pixel bits
 
 //===============================================
 // dithermatron - kindle eink dynamic dither demo
@@ -58,12 +58,12 @@ void dithermatron(void) {
 
     // calculate model-specific vars
     ioctl(fdFB,FBIOGET_VSCREENINFO,&screeninfo);
-    MX=screeninfo.xres;  // max X+1
+    MX=screeninfo.xres; // max X+1
     MY=screeninfo.yres; // max Y+1
-    pb=screeninfo.bits_per_pixel;     // pixel bits
+    pb=screeninfo.bits_per_pixel; // pixel bits
     fs=screeninfo.xres_virtual*pb/8; // fb0 stride
     blk=pb/8-1; // black
-    wht=~blk;  // white
+    wht=~blk; // white
     fb0=(u8 *)mmap(0,MY*fs,PROT_READ|PROT_WRITE,MAP_SHARED,fdFB,0); // map fb0
     eupdate(EUPD_OPEN); // open fb0 update proc
 
@@ -73,10 +73,10 @@ void dithermatron(void) {
     box(px1,py1,82,64);
 
     // cleanup - close and free resources
-    eupdate(EUPD_UPDATE);    // update display
-    eupdate(EUPD_CLOSE);    // close fb0 update proc port
+    eupdate(EUPD_UPDATE); // update display
+    eupdate(EUPD_CLOSE);  // close fb0 update proc port
     munmap(fb0,fs*(MY+1)); // unmap fb0
-    close(fdFB);          // close fb0
+    close(fdFB); // close fb0
 }
 
 //===============================
@@ -100,12 +100,15 @@ int eupdate(int op) {
 // (This works on all eink kindle models.)
 //----------------------------------------
 void inline setpx(int x,int y,int c) {
+    // dither table
     static int dt[64] = { 1,33,9,41,3,35,11,43,49,17,57,25,51,19,59,27,13,45,5,
     37,15,47,7,39,61,29,53,21,63,31,55,23,4,36,12,44,2,34,10,42,52,20,60,28,50,
-    18,58,26,16,48,8,40,14,46,6,38,64,32,56,24,62,30,54,22 }; // dither table
+    18,58,26,16,48,8,40,14,46,6,38,64,32,56,24,62,30,54,22 };
+
+    // geekmaster formula 42
     fb0[pb*x/8+fs*y]=((128&(c-dt[(7&x)+8*(7&y)]))/128*(blk&(240*(1&~x)|
         15*(1&x)|fb0[pb*x/8+fs*y])))|((128&(dt[(7&x)+8*(7&y)]-c))/128*wht|
-        (blk&((240*(1&x)|15*(1&~x))&fb0[pb*x/8+fs*y]))); // geekmaster formula 42
+        (blk&((240*(1&x)|15*(1&~x))&fb0[pb*x/8+fs*y])));
 }
 
 //======================
