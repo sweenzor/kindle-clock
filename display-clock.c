@@ -36,6 +36,8 @@ void box(int,int,int,int);
 void line(int,int,int,int,int);
 void circle(int,int,int);
 int eupdate(int);
+void num_zero(int,int,int);
+void draw_from_array(int[][],int,int,int,int,int);
 
 // global vars
 u8 *fb0=NULL;           // framebuffer pointer
@@ -70,9 +72,8 @@ void dithermatron(void) {
     // do dithered gray demo
     int c=0,px1=MX/2,py1=MY/2,vx1=1,vy1=2,px2=px1,py2=py1,vx2=3,vy2=1;
     int dx,dy,cc=31,cu,cl=7;
-    //box(px1,py1,82,64);
-    box(px1,py1,100,64);
-    box(0,0,100,64);
+
+    num_zero(15,15,30);
 
     // cleanup - close and free resources
     eupdate(EUPD_UPDATE); // update display
@@ -122,6 +123,27 @@ void box(int x,int y,int d,int c) {
     for (i=0;i<d;++i) {
         for (j=0;j<d;++j) {
             setpx(x+i,y+j,c);
+        }
+    }
+}
+
+void num_zero(int x, int y, int m) {
+    int i;
+    int j;
+    int arr[7][5] = {
+        {0,1,1,1,0},
+        {1,0,0,0,1},
+        {1,0,0,1,1},
+        {1,0,1,0,1},
+        {1,1,0,0,1},
+        {1,0,0,0,1},
+        {0,1,1,1,0}
+    };
+    for (i=0;i<7;++i) {
+        for (j=0;j<5;++j) {
+            if (arr[i][j] == 1) {
+                box(x+(m*j), y+(m*i), m, 64);
+            }
         }
     }
 }
