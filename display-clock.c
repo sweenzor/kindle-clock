@@ -37,6 +37,7 @@ void line(int,int,int,int,int);
 void circle(int,int,int);
 int eupdate(int);
 void num_zero(int,int,int);
+void draw_from_array(int[7][5],int,int,int);
 
 // global vars
 u8 *fb0=NULL;           // framebuffer pointer
@@ -126,9 +127,19 @@ void box(int x,int y,int d,int c) {
     }
 }
 
-void num_zero(int x, int y, int m) {
+void draw_from_array(int arr[7][5], int x, int y, int m) {
     int i;
     int j;
+    for (i=0;i<7;++i) {
+        for (j=0;j<5;++j) {
+            if (arr[i][j] == 1) {
+                box(x+(m*j), y+(m*i), m, 64);
+            }
+        }
+    }
+}
+
+void num_zero(int x, int y, int m) {
     int arr[7][5] = {
         {0,1,1,1,0},
         {1,0,0,0,1},
@@ -138,13 +149,7 @@ void num_zero(int x, int y, int m) {
         {1,0,0,0,1},
         {0,1,1,1,0}
     };
-    for (i=0;i<7;++i) {
-        for (j=0;j<5;++j) {
-            if (arr[i][j] == 1) {
-                box(x+(m*j), y+(m*i), m, 64);
-            }
-        }
-    }
+    draw_from_array(arr, x, y, m);
 }
 
 //==================
