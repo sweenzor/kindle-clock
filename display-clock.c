@@ -70,7 +70,9 @@ void dithermatron(void) {
     // do dithered gray demo
     int c=0,px1=MX/2,py1=MY/2,vx1=1,vy1=2,px2=px1,py2=py1,vx2=3,vy2=1;
     int dx,dy,cc=31,cu,cl=7;
-    box(px1,py1,82,64);
+    //box(px1,py1,82,64);
+    box(px1,py1,100,64);
+    box(0,0,100,64);
 
     // cleanup - close and free resources
     eupdate(EUPD_UPDATE); // update display
@@ -116,9 +118,11 @@ void inline setpx(int x,int y,int c) {
 //----------------------
 void box(int x,int y,int d,int c) {
     int i;
+    int j;
     for (i=0;i<d;++i) {
-        setpx(x+i,y+d,c); setpx(x+i,y-d,c); setpx(x-i,y+d,c); setpx(x-i,y-d,c);
-        setpx(x+d,y+i,c); setpx(x+d,y-i,c); setpx(x-d,y+i,c); setpx(x-d,y-i,c);
+        for (j=0;j<d;++j) {
+            setpx(x+i,y+j,c);
+        }
     }
 }
 
