@@ -76,30 +76,40 @@ void dithermatron(void) {
     fb0=(u8 *)mmap(0,MY*fs,PROT_READ|PROT_WRITE,MAP_SHARED,fdFB,0); // map fb0
     eupdate(EUPD_OPEN); // open fb0 update proc
 
-    // do dithered gray demo
-    int c=0,px1=MX/2,py1=MY/2,vx1=1,vy1=2,px2=px1,py2=py1,vx2=3,vy2=1;
-    int dx,dy,cc=31,cu,cl=7;
-
-    int x_offset=75;
-    int y_offset=(rand() % 665);
-    int size=15;
-    num_one(x_offset+0,y_offset+15,size);
-    num_six(x_offset+90,y_offset+15,size);
-    num_four(x_offset+180,y_offset+15,size);
-    num_seven(x_offset+270,y_offset+15,size);
-    num_zero(x_offset+360,y_offset+15,size);
-
+    // calculate days and load into char array
     srand(time(NULL));
     time_t epoch=time(NULL);
     int days=((2849756400 - (int)time(NULL))/(60*60*24));
-    printf("%d\n", days);
+    char arr[8];
+    sprintf(arr, "%d", days);
 
-    int a = 1191223;
-    char arr[16];
-    sprintf(arr, "%d", a);
+    // print to screen
+    int x_offset=75;
+    int y_offset=(rand() % 665);
+    int size=15;
     int i;
-    for (i = 0; i < 7; ++i) {
-        printf("digit %d = %c\n", i, arr[i]);
+    for (i = 0; i < 5; ++i) {
+        if (arr[i] == '0') {
+            num_zero(x_offset+(90*i),y_offset+15,size);
+        } else if (arr[i] == '1') {
+            num_one(x_offset+(90*i),y_offset+15,size);
+        } else if (arr[i] == '2') {
+            num_two(x_offset+(90*i),y_offset+15,size);
+        } else if (arr[i] == '3') {
+            num_three(x_offset+(90*i),y_offset+15,size);
+        } else if (arr[i] == '4') {
+            num_four(x_offset+(90*i),y_offset+15,size);
+        } else if (arr[i] == '5') {
+            num_five(x_offset+(90*i),y_offset+15,size);
+        } else if (arr[i] == '6') {
+            num_six(x_offset+(90*i),y_offset+15,size);
+        } else if (arr[i] == '7') {
+            num_seven(x_offset+(90*i),y_offset+15,size);
+        } else if (arr[i] == '8') {
+            num_eight(x_offset+(90*i),y_offset+15,size);
+        } else if (arr[i] == '9') {
+            num_nine(x_offset+(90*i),y_offset+15,size);
+        }
     }
 
     // cleanup - close and free resources
