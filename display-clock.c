@@ -37,7 +37,6 @@ void line(int,int,int,int,int);
 void circle(int,int,int);
 int eupdate(int);
 void num_zero(int,int,int);
-void draw_from_array(int[][],int,int,int,int,int);
 
 // global vars
 u8 *fb0=NULL;           // framebuffer pointer
